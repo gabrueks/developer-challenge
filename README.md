@@ -14,7 +14,7 @@ git clone https://github.com/gabrueks/developer-challenge.git
 
 Go to folder 'back-end' and then
 ```
-npm i <br/>
+npm i
 npm start
 ```
 
