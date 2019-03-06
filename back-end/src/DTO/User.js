@@ -21,7 +21,7 @@ exports.isUser = async (username) => {
 }
 
 exports.getPassword = async (email) => {
-    console.log((await User.findOne({ email })).password);
+    // (await User.findOne({ email })).password;
 }
 
 exports.addSubscription = async (group, username) => {
