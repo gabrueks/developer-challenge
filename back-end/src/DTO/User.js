@@ -24,6 +24,15 @@ exports.getPassword = async (email) => {
     console.log((await User.findOne({ email })).password);
 }
 
+exports.addSubscription = async (group, username) => {
+    return await User.findOneAndUpdate({ username }, { '$push': { subscriptions: group } })
+}
+
+exports.getSubscriptions = async (email) => {
+    console.log(email);
+    return await User.findOne({ email });
+}
+
 exports.verify_user = async (loginUser) => {
     const isValid = await User.find({ email: loginUser.email });
     if (isValid.length > 0) {

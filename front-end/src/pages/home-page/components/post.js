@@ -149,7 +149,7 @@ export default class Post extends Component {
                             <Avatar href="/home/home" size="medium"></Avatar>
                         </div>
                         <div className="user-name">
-                            {this.props.value.actor.id || this.props.value.actor}
+                            {(this.props.value.actor.id) ? <span>{this.props.value.actor.id}</span> : this.props.value.actor}
                         </div>
                     </div>
                     <div className="creation-date">

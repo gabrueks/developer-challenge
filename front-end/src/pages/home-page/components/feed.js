@@ -16,18 +16,17 @@ export default class Feed extends Component {
 
     async getPosts() {
         return await listPost(this.state).then(x => {
-            console.log(x);
             if (x.data.next === '') {
                 this.setState({
                     bottomOff: true
                 });
             }
             if (!this.state.posts) {
-                this.setState({ posts: x.data.posts.results });
-            } 
+                this.setState({ posts: x.data.posts });
+            }
             else {
                 this.setState({
-                    posts: this.state.posts.concat(x.data.posts.results)
+                    posts: this.state.posts.concat(x.data.posts)
                 })
             }
             this.forceUpdate();

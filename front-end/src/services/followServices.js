@@ -15,6 +15,10 @@ export const followGroup = async (follow) => {
     return await axios.put(`${DEFAULT_URL}/api/v1/follow-group`, { follow }, mountHeaders()).catch(err => handleUnauthorized(err));
 }
 
+export const getSubscriptions = async () => {
+    return await axios.get(`${DEFAULT_URL}/api/v1/subscriptions`, mountHeaders()).catch(err => handleUnauthorized(err));
+}
+
 function handleUnauthorized(err) {
     if (err.response.status === 401) {
         window.localStorage.clear();

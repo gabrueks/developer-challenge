@@ -10,15 +10,9 @@ exports.create_post = async (req, res) => {
 
 exports.list_posts = async (req, res) => {
     const token = await userDTO.retrieve_token(req.get('email'));
-    stream.list_feed(token.user_token, token.username, req.get('last'))
-        .then((posts) => {
-            res.status(200).json({
-              posts: posts
-            });
-        })
-        .catch((err) => {
-            res.status(204).end();
-        });
+    res.status(200).json({
+        posts: await stream.list_feed(token.user_token, token.username, req.get('last_timeline'), req.get('last_user'))
+    });
 }
 
 exports.create_comment = async (req, res) => {
@@ -30,6 +24,17 @@ exports.create_comment = async (req, res) => {
         .catch((err) => {
             res.status(204).end();
         });
+}
+
+exports.create_post_timeline = async (req, res) => {
+    const token = await userDTO.retrieve_token(req.get('email'));
+    stream.create_post_timeline(token.username, req.body.text, req.body.timeline)
+        .then((response) => {
+            res.status(201).end();
+        })
+        .catch((err) => {
+            res.status(500).end();
+        })
 }
 
 exports.more_comments = async (req, res) => {

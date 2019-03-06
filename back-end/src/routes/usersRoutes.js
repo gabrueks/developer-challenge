@@ -25,6 +25,9 @@ module.exports = (app) => {
     app.route('/api/v1/create-group')
       .post(guard.verifierJWT, users.create_group)
 
-    app.route('api/v1/follow-group')
+    app.route('/api/v1/follow-group')
       .put(guard.verifierJWT, users.follow_group)
+
+    app.route('/api/v1/subscriptions')
+      .get(guard.verifierJWT, users.get_subscriptions)
 }

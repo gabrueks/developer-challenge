@@ -9,12 +9,15 @@ module.exports = (app) => {
     app.route('/api/v1/create-post')
       .post(guard.verifierJWT, posts.create_post)
 
+    app.route('/api/v1/create-post-timeline')
+      .post(guard.verifierJWT, posts.create_post_timeline);
+
     app.route('/api/v1/create-comment')
       .post(guard.verifierJWT, posts.create_comment)
 
     app.route('/api/v1/get-comments')
       .post(guard.verifierJWT, posts.more_comments)
 
-      app.route('/api/v1/like-post')
+    app.route('/api/v1/like-post')
       .put(guard.verifierJWT, posts.like_post)
 }

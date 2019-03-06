@@ -16,17 +16,28 @@ exports.create_user = (username) => {
     return client.createUserToken(username);
 }
 
-exports.list_feed = async (user_token, username, id_lt) => {
-    return client.feed('user', username)
+exports.list_feed = async (user_token, username, id_lt_timeline, id_lt_user) => {
+    const userFeed = (await client.feed('user', username)
         .get({
             limit: 5,
-            id_lt: (id_lt !== '') ? id_lt : undefined ,
+            id_lt: (id_lt_user !== '') ? id_lt_user : undefined ,
             reactions: {
                 recent: true, 
                 counts: true,
                 recent: true
             }
-        }).catch((err) => console.log(err));
+        })).results;
+    const groupsFeed = (await client.feed('timeline', username)
+        .get({
+            limit: 5,
+            id_lt: (id_lt_timeline !== '') ? id_lt_timeline : undefined ,
+            reactions: {
+                recent: true, 
+                counts: true,
+                recent: true
+            }
+        })).results;
+    return userFeed.concat(groupsFeed);
 }
 
 exports.more_comments = async (url, username) => {
@@ -39,7 +50,12 @@ exports.follow_user = async (userFollow, username) => {
 
 exports.create_post = async (username, text) => {
     return await client.feed('user', username)
-            .addActivity({actor: username, verb: 'user', object: text, foreign_id: `user:${username}`}).catch((x) => console.log(x));
+            .addActivity({actor: username, verb: 'user', object: text, foreign_id: `user:${username}`}).catch((err) => console.log(err));
+}
+
+exports.create_post_timeline = async (username, text, timeline) => {
+    return await client.feed('timeline', username)
+        .addActivity({actor: username, verb: 'timeline', object: text, foreign_id: `timeline:${timeline}`}).catch((err) => console.log(err));
 }
 
 exports.like_post = async (username, activityId, isLiked, likeId) => {

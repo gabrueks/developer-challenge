@@ -17,7 +17,7 @@ const dbPassword = process.env.DB_MONGODB_PASS || `admin`;
 (process.env.DATABASE_HOST && process.env.DATABASE_NAME && process.env.DB_MONGODB_USER && process.env.DB_MONGODB_PASS) ?
     DBURI = `mongodb://${dbUsername}:${dbPassword}@${process.env.DATABASE_HOST}` +
     `:${process.env.DATABASE_PORT}/${process.env.DATABASE_NAME}`
-    : DBURI = `mongodb://${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/${process.env.DATABASE_NAME}`
+    : DBURI = `mongodb://127.0.0.1:27017/social-network`
 
 // Middlewares
 app.use(bodyParser.json());
@@ -43,11 +43,16 @@ postsRoutes(app);
 
 app.listen(PORT, async () => {
     await mongoose.connect(
-        'mongodb://127.0.0.1:27017/social-network', {
+        'mongodb://campai-mongo:27017/social-network', {
             useNewUrlParser: true,
             useCreateIndex: true
         }
-        ).catch((err) => {
+        ).catch(async (err) => {
             console.error(err);
+            await mongoose.connect(
+                'mongodb://127.0.0.1:27017/social-network', {
+                    useNewUrlParser: true,
+                    useCreateIndex: true
+                })
         });
 });

@@ -4,9 +4,11 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm install
+COPY server.js ./
 
 COPY . .
+
+RUN npm install
 
 EXPOSE 8080
 

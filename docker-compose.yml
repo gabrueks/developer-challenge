@@ -1,0 +1,23 @@
+version: "2"
+services:
+  campai-mongo:
+    container_name: mongodb-social-network
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+  campai-back-app:
+    container_name: campai-node-back
+    restart: always
+    build: ./back-end
+    ports:
+      - "8080:8080"
+    links:
+      - campai-mongo
+  campai-front-react:
+    container_name: campai-react-front
+    restart: always
+    build: ./front-end
+    ports:
+      - "3000:3000"

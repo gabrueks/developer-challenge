@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
 const getStream = require('../services/getStream');
 
-const userDTO = require('../DTO/user');
+const userDTO = require('../DTO/User');
 
 exports.create_user = async (req, res) => {
     let body = req.body;
@@ -35,24 +35,31 @@ exports.login_user = async (req, res, next) => {
 
 exports.create_group = async (req, res) => {
     const token = await userDTO.retrieve_token(req.get('email'));
-    getStream.create_group(req.body.name, token.username)
-      .then((res) => {
-        res.status(201).end();
+    await getStream.create_group(req.body.name, token.username)
+        .then((response) => {
+            res.status(201).end();
+        })
+        .catch((err) => {
+            res.status(500).end();
+        })
+}
+
+exports.follow_group = async (req, res) => {
+    const token = await userDTO.retrieve_token(req.get('email'));
+    console.log(await userDTO.addSubscription(req.body.follow, token.username));
+    await getStream.follow_group(req.body.follow, token.username)
+      .then((response) => {
+        res.status(200).end();
       })
       .catch((err) => {
         res.status(500).end();
       })
 }
 
-exports.follow_group = async (req, res) => {
-    const token = await userDTO.retrieve_token(req.get('email'));
-    stream.follow_group(req.body.name, token.username)
-      .then((res) => {
-        res.status(200).end();
-      })
-      .catch((err) => {
-        res.status(500).end();
-      })
+exports.get_subscriptions = async (req, res) => {
+    console.log(req.body);
+    const subscriptions = (await userDTO.getSubscriptions(req.get('email'))).subscriptions;
+    res.status(200).json({ subscriptions });
 }
 
 exports.forget_password = async (req, res) => {
@@ -75,7 +82,6 @@ exports.follow_user = async (req, res) => {
                 res.status(200).json({ followed: true })
             })
             .catch((err) => {
-                console.log(err);
                 res.status(500).end()
             })
     } else {
