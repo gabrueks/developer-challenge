@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt');
 
 const User = require('../models/userModel');
 const getStream = require('../services/getStream');
-
 const userDTO = require('../DTO/User');
 
 exports.create_user = async (req, res) => {

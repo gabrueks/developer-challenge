@@ -1,4 +1,5 @@
 const app = require('express')();
+const dotenv = require('dotenv');
 const middlewares = require('./middlewares');
 const dbBootstrap = require('./databaseBootstrap');
 
@@ -7,6 +8,11 @@ middlewares(app);
 
 // DB Start
 dbBootstrap();
+
+// Start prod variables
+if (process.env.ENV === 'prod') {
+    dotenv.config();
+}
 
 // Users routes setting
 const usersRoutes = require('./src/routes/usersRoutes');
