@@ -48,7 +48,7 @@ exports.follow_group = async (req, res) => {
     const token = await userDTO.retrieve_token(req.get('email'));
     await getStream.follow_group(req.body.follow, token.username)
       .then((response) => {
-        res.status(200).end();
+          res.status(200).end();
       })
       .catch((err) => {
         res.status(500).end();

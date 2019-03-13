@@ -5,12 +5,23 @@ services:
     image: mongo
     volumes:
       - ./data:/data/db
+    enviroment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
     ports:
       - "27017:27017"
   campai-back-app:
     container_name: campai-node-back
     restart: always
-    build: ./back-end
+    build: 
+      context: ./back-end
+      args:
+        - PORT = 8080
+        - DATABASE_HOST=campai-mongo
+        - DATABASE_PORT=27017
+        - DATABASE_NAME=social-network
+        - DB_MONGODB_USER=admin
+        - DB_MONGODB_PASS=admin
     ports:
       - "8080:8080"
     links:
