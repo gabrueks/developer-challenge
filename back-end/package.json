@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Nodejs project campai",
   "scripts": {
-    "start": "ENV=prod node server.js",
+    "start": "ENV=prod node -r dotenv/config server.js dotenv_config_path=./.env.prod",
     "start:docker": "ENV=docker node server.js",
-    "dev": "ENV=dev nodemon server.js",
+    "dev": "ENV=dev nodemon -r dotenv/config server.js dotenv_config_path=./.env.dev",
     "lint": "standard"
   },
   "keywords": [
