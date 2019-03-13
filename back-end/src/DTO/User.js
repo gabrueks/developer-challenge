@@ -23,8 +23,8 @@ exports.isUser = (username) => {
     return User.countDocuments({ username }).exec();
 }
 
-exports.addSubscription = async (group, username) => {
-    return await User.findOneAndUpdate({ username }, { '$push': { subscriptions: group } })
+exports.addSubscription = (group, username) => {
+    return User.findOneAndUpdate({ username }, { '$push': { subscriptions: group } }).exec();
 }
 
 exports.getSubscriptions = (email) => {

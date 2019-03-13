@@ -1,12 +1,10 @@
 const app = require('express')();
-const middlewares = require('./middlewares');
-const dbBootstrap = require('./databaseBootstrap');
 
 // Middlewares
-middlewares(app);
+require('./middlewares')(app);
 
 // DB Start
-dbBootstrap();
+require('./databaseBootstrap')();
 
 // Users routes setting
 require('./src/routes/usersRoutes')(app);

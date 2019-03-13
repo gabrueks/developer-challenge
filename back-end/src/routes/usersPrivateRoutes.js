@@ -9,9 +9,6 @@ module.exports = (app) => {
     app.route('/api/v1/logout')
       .post(users.logout_user)
 
-    app.route('/api/v1/users')
-      .get(users.all_users)
-
     app.route('/api/v1/follow')
       .put(users.follow_user)
 
