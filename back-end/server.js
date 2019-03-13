@@ -9,11 +9,10 @@ middlewares(app);
 dbBootstrap();
 
 // Users routes setting
-const usersRoutes = require('./src/routes/usersRoutes');
-usersRoutes(app);
+require('./src/routes/usersRoutes')(app);
+require('./src/routes/usersPrivateRoutes')(app);
 
 // Posts routes setting
-const postsRoutes = require('./src/routes/postsRoutes');
-postsRoutes(app);
+require('./src/routes/postsRoutes')(app);
 
 app.listen(process.env.PORT || 8080);

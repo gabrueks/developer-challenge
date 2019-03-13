@@ -34,24 +34,19 @@ exports.login_user = async (req, res, next) => {
 
 exports.create_group = async (req, res) => {
     const token = await userDTO.retrieve_token(req.get('email'));
-    await getStream.create_group(req.body.name, token.username)
+    getStream.create_group(req.body.name, token.username)
         .then((response) => {
             res.status(201).end();
-        })
-        .catch((err) => {
-            res.status(500).end();
         })
 }
 
 exports.follow_group = async (req, res) => {
     const token = await userDTO.retrieve_token(req.get('email'));
-    await getStream.follow_group(req.body.follow, token.username)
-      .then((response) => {
-          res.status(200).end();
-      })
-      .catch((err) => {
-        res.status(500).end();
-      })
+    getStream.follow_group(req.body.follow, token.username)
+        .then((response) => {
+            userDTO.addSubscription(req.body.follow)
+            res.status(200).end();
+        })
 }
 
 exports.get_subscriptions = async (req, res) => {
@@ -74,12 +69,9 @@ exports.logout_user = async (req, res) => {
 exports.follow_user = async (req, res) => {
     const token = await userDTO.retrieve_token(req.get('email'));
     if (await userDTO.isUser(req.body.follow) > 0) {
-        await getStream.follow_user(req.body.follow, token.username)
+        getStream.follow_user(req.body.follow, token.username)
             .then((response) => {
                 res.status(200).json({ followed: true })
-            })
-            .catch((err) => {
-                res.status(500).end()
             })
     } else {
         res.status(204).end();
