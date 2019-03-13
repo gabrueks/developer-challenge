@@ -31,7 +31,7 @@ git clone https://github.com/gabrueks/developer-challenge.git
 ```
 cd ./back-end
 npm i
-npm start
+npm run dev
 ```
 ```
 cd ./front-end
