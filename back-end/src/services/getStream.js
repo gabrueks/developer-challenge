@@ -35,21 +35,21 @@ exports.list_feed = async (user_token, username, id_lt_timeline, id_lt_user) => 
 }
 
 exports.more_comments = async (url, username) => {
-    return await axios.get(`${process.env.DEFAULT_ENDPOINT}${url}&api_key=${process.env.API_KEY_STREAM}`, clientSideAuth(username)).catch((err) => console.log(err))
+    return await axios.get(`${process.env.DEFAULT_ENDPOINT}${url}&api_key=${process.env.API_KEY_STREAM}`, clientSideAuth(username));
 }
 
 exports.follow_user = async (userFollow, username) => {
-    return await axios.post(`${process.env.DEFAULT_ENDPOINT}feed/user/${username}/follows/?api_key=${process.env.API_KEY_STREAM}`, { target: `user:${userFollow}` }, serverSideAuthFollower(username, userFollow)).catch(err => console.log(err));
+    return await axios.post(`${process.env.DEFAULT_ENDPOINT}feed/user/${username}/follows/?api_key=${process.env.API_KEY_STREAM}`, { target: `user:${userFollow}` }, serverSideAuthFollower(username, userFollow));
 }
 
 exports.create_post = async (username, text) => {
     return await client.feed('user', username)
-            .addActivity({actor: username, verb: 'user', object: text, foreign_id: `user:${username}`}).catch((err) => console.log(err));
+            .addActivity({actor: username, verb: 'user', object: text, foreign_id: `user:${username}`});
 }
 
 exports.create_post_timeline = async (username, text, timeline) => {
     return await client.feed('timeline', username)
-        .addActivity({actor: username, verb: 'timeline', object: text, foreign_id: `timeline:${timeline}`}).catch((err) => console.log(err));
+        .addActivity({actor: username, verb: 'timeline', object: text, foreign_id: `timeline:${timeline}`});
 }
 
 exports.like_post = async (username, activityId, isLiked, likeId) => {
@@ -58,9 +58,9 @@ exports.like_post = async (username, activityId, isLiked, likeId) => {
             kind: 'like',
             activity_id: activityId,
             user_id: username
-        }, clientSideAuth(username)).catch((err) => console.log(err));
+        }, clientSideAuth(username));
     } else {
-        return await axios.delete(`${process.env.DEFAULT_ENDPOINT}reaction/${likeId}/?api_key=${process.env.API_KEY_STREAM}`, clientSideAuth(username)).catch((err) => console.log(err));
+        return await axios.delete(`${process.env.DEFAULT_ENDPOINT}reaction/${likeId}/?api_key=${process.env.API_KEY_STREAM}`, clientSideAuth(username));
     }
 }
 
@@ -77,11 +77,11 @@ exports.create_comment = async (username, text, activityId) => {
 
 exports.create_group = async (name, username) => {
 
-    return await axios.post(`${process.env.DEFAULT_ENDPOINT}feed/timeline/${username}/follows/?api_key=${process.env.API_KEY_STREAM}`, { target: `timeline:${name}` }, serverSideAuthFollowerGroup(username, name)).catch(err => console.log(err));
+    return await axios.post(`${process.env.DEFAULT_ENDPOINT}feed/timeline/${username}/follows/?api_key=${process.env.API_KEY_STREAM}`, { target: `timeline:${name}` }, serverSideAuthFollowerGroup(username, name));
 }
 
 exports.follow_group = async (userFollow, username) => {
-    return await axios.post(`${process.env.DEFAULT_ENDPOINT}feed/timeline/${username}/follows/?api_key=${process.env.API_KEY_STREAM}`, { target: `timeline:${userFollow}` }, serverSideAuthFollowerGroup(username, userFollow)).catch(err => console.log(err));
+    return await axios.post(`${process.env.DEFAULT_ENDPOINT}feed/timeline/${username}/follows/?api_key=${process.env.API_KEY_STREAM}`, { target: `timeline:${userFollow}` }, serverSideAuthFollowerGroup(username, userFollow));
 }
 
 function clientSideAuth(username) {

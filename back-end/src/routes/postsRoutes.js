@@ -1,7 +1,7 @@
 const guard = require('../guard/guard');
 
 module.exports = (app) => {
-    const posts = require('../controllers/postsController')
+    const posts = require('../controllers/postsControllerIndex')
 
     app.use(guard.verifierJWT);
 

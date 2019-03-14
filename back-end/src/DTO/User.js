@@ -19,6 +19,10 @@ exports.save_user = async (newUser) => {
         : { code: 400, situation: { created: false } };
 }
 
+exports.getPassword = (email) => {
+    return User.findOne({ email }).exec();
+}
+
 exports.isUser = (username) => {
     return User.countDocuments({ username }).exec();
 }

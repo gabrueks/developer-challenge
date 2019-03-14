@@ -7,7 +7,7 @@ exports.verifierJWT = (req, res, next) => {
             message: 'No token provided.'
         });
     }
-    jwt.verify(req.get('x-access-token'), process.env.SECRET || `secret`, (err, decoded) => {
+    jwt.verify(req.get('x-access-token'), process.env.SECRET, (err, decoded) => {
         if (err) {
             res.status(401).json({
                 auth: false,

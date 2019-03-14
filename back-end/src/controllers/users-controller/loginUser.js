@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
                 email: req.body.email,
                 user_token: user_token.user_token,
                 user_id: user_token.username,
-                token: await jwt.sign({ exp: Math.floor(Date.now() / 1000) + (60 * 60),data: verifier }, process.env.SECRET || `secret`)
+                token: await jwt.sign({ exp: Math.floor(Date.now() / 1000) + (60 * 60),data: verifier }, process.env.SECRET)
             });
     } else {
         res.status(401).json({ auth: false, email: null, token: null });
