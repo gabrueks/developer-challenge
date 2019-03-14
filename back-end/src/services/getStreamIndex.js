@@ -1,7 +1,3 @@
-const stream = require('getstream');
-
-const client = stream.connect(process.env.API_KEY_STREAM, process.env.API_SECRET_STREAM, process.env.API_ID_STREAM);
-
 // Users functions
 exports.create_user = require('./get-stream-services/userServices').create_user;
 exports.follow_user = require('./get-stream-services/userServices').follow_user;

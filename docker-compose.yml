@@ -21,7 +21,8 @@ services:
       - API_KEY_STREAM=33rpj3hmmh35
       - API_SECRET_STREAM=yfu6hajqvrdbxgfrun85tuqxycexzbfeefhjer4gr6k6qserjapjpt8kv3sqawrx
       - API_ID_STREAM=48095
-      - STREAM_ENDPOINT=https://us-east-api.stream-io-api.com/api/v1.0/
+      - DEFAULT_ENDPOINT=https://us-east-api.stream-io-api.com/api/v1.0/
+      - SECRET=secret
     build: 
       context: ./back-end
     ports:
