@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 
-const getStream = require('../../services/getStream');
-const userDTO = require('../../DTO/User');
+const getStream = require('../../services/getStreamIndex');
+const userDTO = require('../../DTO/UserIndex');
 
 module.exports = async (req, res) => {
     let body = req.body;

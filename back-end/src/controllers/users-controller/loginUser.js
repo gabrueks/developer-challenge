@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const userDTO = require('../../DTO/User');
+const userDTO = require('../../DTO/UserIndex');
 
 module.exports = async (req, res, next) => {
     const verifier = await userDTO.verify_user(req.body);

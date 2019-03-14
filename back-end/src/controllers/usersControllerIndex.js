@@ -1,4 +1,3 @@
-const userDTO = require('../DTO/User');
 exports.create_user = require('./users-controller/createUser');
 exports.login_user = require('./users-controller/loginUser');
 exports.create_group = require('./users-controller/createGroup');

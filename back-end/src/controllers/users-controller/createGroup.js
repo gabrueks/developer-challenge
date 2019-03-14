@@ -1,5 +1,5 @@
-const getStream = require('../../services/getStream');
-const userDTO = require('../../DTO/User');
+const getStream = require('../../services/getStreamIndex');
+const userDTO = require('../../DTO/UserIndex');
 
 module.exports = async (req, res) => {
     const token = await userDTO.retrieve_token(req.get('email'));

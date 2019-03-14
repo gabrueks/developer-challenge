@@ -1,4 +1,4 @@
-const userDTO = require('../../DTO/User')
+const userDTO = require('../../DTO/UserIndex')
 
 module.exports = async (req, res) => {
     const subscriptions = (await userDTO.get_subscriptions(req.get('email'))).subscriptions;
