@@ -1,6 +1,6 @@
 import * as axios from 'axios';
 
-const DEFAULT_URL = 'https://blooming-taiga-15572.herokuapp.com';
+const DEFAULT_URL = 'http://localhost:8080';
 
 export const createUser = async (data) => {
     return await axios.post(`${DEFAULT_URL}/api/v1/signup`, data);
